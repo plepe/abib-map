@@ -1,0 +1,55 @@
+defaultState:
+  id: 1
+
+dateFormat: ll
+
+overlays:
+  - id: borders
+    type: leaflet-geowiki
+    enabled: true
+    data: borders.osm.json
+    styleFile: borders.yaml
+    filter: |
+      {% if state.date %}
+      {% set q = state.date|slice(0, 10)|osmDateQuery({ op: '<=', strict: true }) %}
+      relation[start_date~"{{ q }}"][end_date!~"{{ q }}"]
+      {% endif %}
+
+layers:
+- type: TimelineLayer
+  source:
+    url: '{{ id }}.geojson'
+    reqParameter: ['id']
+
+  feature:
+    type: start-end-field
+    startField: |-
+      {{ item.properties.Start }}
+    endField: |-
+      {{ item.properties.Ende }}
+    popupTemplate: |-
+      {{ item.properties.nothing }}
+    nodeFeature: marker
+    markerSymbol: |
+      {{ markerPointer({}) }}
+    markerSign: X
+    styleTemplate: |-
+      {% set rang_color = { "B": "#0000ff", "G": "#0066ff", "E": "#00bbff", "N": "#00aa77" } %}
+      {% set rang_width = { "B": 3, "G": 3, "E": 3, "N": 1.5 } %}
+      {% set index = item.properties.M18_RANG_SUB %}
+      { "color": "{{ rang_color[index] }}", "weight": "{{ rang_width[index] }}" }
+
+- type: TimelineTimestamps
+  source:
+    url: '11.json'
+
+  feature:
+    type: start-end-field
+    startField: |-
+      {{ item.field_start }}
+    endField: |-
+      {{ item.field_ende }}
+    contentField: |-
+      {{ item.nothing }}
+    typeField: box
+#background
