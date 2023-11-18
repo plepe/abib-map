@@ -1,5 +1,4 @@
-defaultState:
-  id: 1
+defaultState: {}
 
 dateFormat: ll
 
@@ -16,28 +15,48 @@ overlays:
       {% endif %}
 
 layers:
-- type: TimelineLayer
+- type: TimelineJSON
   source:
-    url: '{{ id }}.geojson'
-    reqParameter: ['id']
+    url: /info.json
+    filterId: |-
+      {{ state.id }}
+    filter: |-
+      {{ state.id != null and state.id != '' ? item.id == state.id : true }}
 
   feature:
-    type: start-end-field
+#    init: |
+#      {% set object = item.object|json_decode[0] %}
+#      {{ setFlag('related', object.related ? object.related|split(',') : []) }}
+    type: function
+    logFunction: |
+      {{ item.kartendaten|default('[]') }}
+    geomType: wkt
+    geomLogField: koordinaten
+    endLogField: ende
     startField: |-
-      {{ item.properties.Start }}
+      {{ item.Start }}
     endField: |-
-      {{ item.properties.Ende }}
-    popupTemplate: |-
-      {{ item.properties.nothing }}
+      {{ item.Ende }}
     nodeFeature: marker
     markerSymbol: |
       {{ markerPointer({}) }}
-    markerSign: X
+    markerSign: |
+      {% if item.type == 'person' %}
+      <i class="fa-solid fa-user"></i>
+      {% elseif item.type == 'rundweg' %}
+      <i class="fa-solid fa-route"></i>
+      {% elseif item.type == 'treffpunkt' %}
+      <i class="fa-solid fa-location-dot"></i>
+      {% elseif item.type == 'ereignis' %}
+      <i class="fa-solid fa-bolt"></i>
+      {% endif %}
     styleTemplate: |-
-      {% set rang_color = { "B": "#0000ff", "G": "#0066ff", "E": "#00bbff", "N": "#00aa77" } %}
-      {% set rang_width = { "B": 3, "G": 3, "E": 3, "N": 1.5 } %}
-      {% set index = item.properties.M18_RANG_SUB %}
-      { "color": "{{ rang_color[index] }}", "weight": "{{ rang_width[index] }}" }
+      { "color": "black", "weight": "3" }
+    popupTemplate: Loading ...
+    popupSource:
+      url: |-
+        /popup/{{ item.id }}
+      querySelector: .view-node-info .layout
 
 - type: TimelineTimestamps
   source:
