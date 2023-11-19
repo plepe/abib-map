@@ -4,6 +4,7 @@
 }
 .leaflet-popup-content {
   margin: 0 0;
+  padding-bottom: 1em;
 }
 .leaflet-popup-content .header {
   border-bottom: 1px solid black;
@@ -22,8 +23,25 @@ details {
   border-radius: 5px;
   padding: 0 1em;
 }
+div.horizontal-tabs > ul {
+  border-bottom: 1px solid black;
+  padding: 0 0;
+  margin: 0 0;
+}
+div.horizontal-tabs > ul > li {
+  display: inline-block;
+  margin-bottom: -1px;
+  list-style: none;
+  padding: 0.25em 1em;
+  border-right: 1px solid black;
+}
+div.horizontal-tabs > ul > li.active {
+  border-bottom: 1px solid white;
+}
 div.horizontal-tabs > div[data-horizontal-tabs-panes] > details {
   display: none;
+  border: none;
+  border-radius: 0;
 }
 div.horizontal-tabs > div[data-horizontal-tabs-panes] > details[open] {
   display: block;

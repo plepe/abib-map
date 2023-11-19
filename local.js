@@ -9,18 +9,28 @@ function handlePopup (div) {
     const header = d.querySelector('ul.horizontal-tabs-list')
     const panesParent = d.querySelector('div[data-horizontal-tabs-panes]')
     const panes = []
+    const headers = []
 
     Array.from(panesParent.children).forEach(p => {
       if (p.nodeName === 'DETAILS') {
         panes.push(p)
         const li = document.createElement('li')
+        headers.push(li)
+        if (p.hasAttribute('open')) {
+          li.classList.add('active')
+        }
+
         const a = document.createElement('a')
         a.href = '#'
         a.onclick = () => {
           panes.forEach(p1 => {
             p1.removeAttribute('open')
           })
+          headers.forEach(l1 => {
+            l1.classList.remove('active')
+          })
           p.setAttribute('open', 'open')
+          li.classList.add('active')
           return false
         }
         a.innerHTML = p.querySelector('summary').innerHTML
