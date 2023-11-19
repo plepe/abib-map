@@ -1,0 +1,33 @@
+.leaflet-popup-content-wrapper {
+  overflow-y: auto;
+  padding: 0 0;
+}
+.leaflet-popup-content {
+  margin: 0 0;
+}
+.leaflet-popup-content .header {
+  border-bottom: 1px solid black;
+  background: #efefef;
+}
+.leaflet-popup-content .header,
+.leaflet-popup-content .content {
+  padding: 0.5em 1em;
+}
+.leaflet-popup-content h1 {
+  margin: 0.125em 0;
+  font-size: 1.25em;
+}
+details {
+  border: 1px solid grey;
+  border-radius: 5px;
+  padding: 0 1em;
+}
+div.horizontal-tabs > div[data-horizontal-tabs-panes] > details {
+  display: none;
+}
+div.horizontal-tabs > div[data-horizontal-tabs-panes] > details[open] {
+  display: block;
+}
+div.horizontal-tabs > div[data-horizontal-tabs-panes] > details > summary {
+  display: none;
+}
