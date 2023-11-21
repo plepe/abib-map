@@ -18,6 +18,29 @@
   margin: 0.125em 0;
   font-size: 1.25em;
 }
+
+.field__label {
+  font-weight: bold;
+}
+.field--label-above > .field__items > .field__item {
+  margin-bottom: 0.25em;
+}
+.field--label-inline {
+  display: flex;
+  flex-direction: row;
+}
+.field--label-inline > .field__label {
+  /* min-width: 25%; */
+}
+.field--label-inline > .field__label:after {
+  content: ': ';
+  margin-right: 0.25em;
+}
+
+.field__item .item-list > ul {
+  padding-left: 20px;
+  margin: 0 0;
+}
 details {
   border: 1px solid grey;
   border-radius: 5px;
@@ -32,7 +55,7 @@ div.horizontal-tabs > ul > li {
   display: inline-block;
   margin-bottom: -1px;
   list-style: none;
-  padding: 0.25em 1em;
+  padding: 2px 1em;
   border-right: 1px solid black;
 }
 div.horizontal-tabs > ul > li.active {
