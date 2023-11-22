@@ -32,15 +32,17 @@ layers:
     type: function
     initialMapView: |
       {{ state.id != null and state.id != '' ? item.id == state.id : true }}
+    considerTimelineTimespan: |
+      {{ state.id != null and state.id != '' ? item.id == state.id : true }}
     logFunction: |
       {{ item.kartendaten|default('[]') }}
     geomType: wkt
     geomLogField: koordinaten
     endLogField: ende
     startField: |-
-      {{ item.Start }}
+      {{ item.start }}
     endField: |-
-      {{ item.Ende }}
+      {{ item.ende }}
     nodeFeature: marker
     markerSymbol: |
       {{ markerPointer({"fillColor": state.id == item.id ? '#ff0000' : '#ffffff' }) }}
@@ -62,17 +64,3 @@ layers:
         /popup/{{ item.id }}
       querySelector: .view-node-info .layout
 
-- type: TimelineTimestamps
-  source:
-    url: '11.json'
-
-  feature:
-    type: start-end-field
-    startField: |-
-      {{ item.field_start }}
-    endField: |-
-      {{ item.field_ende }}
-    contentField: |-
-      {{ item.nothing }}
-    typeField: box
-#background
