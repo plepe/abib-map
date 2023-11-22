@@ -1,4 +1,6 @@
 defaultState: {}
+addParam:
+- id
 
 dateFormat: ll
 
@@ -20,14 +22,16 @@ layers:
     url: /info.json
     filterId: |-
       {{ state.id }}
-    filter: |-
-      {{ state.id != null and state.id != '' ? item.id == state.id : true }}
+#    filter: |-
+#      {{ state.id != null and state.id != '' ? item.id == state.id : true }}
 
   feature:
 #    init: |
 #      {% set object = item.object|json_decode[0] %}
 #      {{ setFlag('related', object.related ? object.related|split(',') : []) }}
     type: function
+    initialMapView: |
+      {{ state.id != null and state.id != '' ? item.id == state.id : true }}
     logFunction: |
       {{ item.kartendaten|default('[]') }}
     geomType: wkt
@@ -39,7 +43,7 @@ layers:
       {{ item.Ende }}
     nodeFeature: marker
     markerSymbol: |
-      {{ markerPointer({}) }}
+      {{ markerPointer({"fillColor": state.id == item.id ? '#ff0000' : '#ffffff' }) }}
     markerSign: |
       {% if item.type == 'person' %}
       <i class="fa-solid fa-user"></i>
