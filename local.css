@@ -1,6 +1,7 @@
 .leaflet-popup-content-wrapper {
   overflow-y: auto;
   padding: 0 0;
+  max-height: 350px;
 }
 .leaflet-popup-content {
   margin: 0 0;
@@ -60,6 +61,7 @@ div.horizontal-tabs > ul > li {
 }
 div.horizontal-tabs > ul > li.active {
   border-bottom: 1px solid white;
+  background: white;
 }
 div.horizontal-tabs > div[data-horizontal-tabs-panes] > details {
   display: none;
