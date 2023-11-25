@@ -5,6 +5,12 @@ window.addEventListener('load', () => {
 })
 
 function handlePopup (div) {
+  Array.from(div.querySelectorAll('a')).forEach(a => {
+    if (a.href && a.href.substr(0, 1) !== '#') {
+      a.target = '_top'
+    }
+  })
+
   Array.from(div.querySelectorAll('div.horizontal-tabs')).forEach(d => {
     const header = d.querySelector('ul.horizontal-tabs-list')
     const panesParent = d.querySelector('div[data-horizontal-tabs-panes]')
