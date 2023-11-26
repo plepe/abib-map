@@ -16,6 +16,12 @@ overlays:
       relation[start_date~"{{ q }}"][end_date!~"{{ q }}"]
       {% endif %}
 
+timeline:
+  defaultMin: 1848
+  defaultMax: 1910
+  options:
+    zoomMin: 864000000
+
 layers:
 - type: TimelineJSON
   source:
@@ -46,6 +52,13 @@ layers:
     nodeFeature: marker
     markerSymbol: |
       {{ markerPointer({"fillColor": state.id == item.id ? '#ff0000' : '#ffffff' }) }}
+    timeline:
+      show: |-
+        {{ item.type == 'ereignis' }}
+      type: 'box'
+      selectable: true
+      content: |-
+        {{ item.title }}
     markerSign: |
       {% if item.type == 'person' %}
       <i class="fa-solid fa-user"></i>
