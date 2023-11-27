@@ -21,6 +21,8 @@ timeline:
   defaultMax: 1910
   options:
     zoomMin: 864000000
+    cluster:
+      titleTemplate: '{count} Ereignisse'
 
 layers:
 - type: TimelineJSON
