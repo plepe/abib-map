@@ -54,8 +54,13 @@ layers:
       {{ markerPointer({"fillColor": state.id == item.id ? '#ff0000' : '#ffffff' }) }}
     timeline:
       show: |-
-        {{ item.type == 'ereignis' }}
-      type: 'box'
+        {{ item.type == 'ereignis' or state.id == item.id }}
+      type: |-
+        {% if state.id == item.id %}
+        background
+        {% else %}
+        box
+        {% endif %}
       selectable: true
       content: |-
         {{ item.title }}
