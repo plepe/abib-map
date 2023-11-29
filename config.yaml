@@ -75,6 +75,8 @@ layers:
       <i class="fa-solid fa-location-dot"></i>
       {% elseif item.type == 'ereignis' %}
       <i class="fa-solid fa-bolt"></i>
+      {% elseif item.type == 'gruppierung' %}
+      <i class="fa-solid fa-users"></i>
       {% endif %}
     styleTemplate: |-
       { "color": "black", "weight": "3" }
