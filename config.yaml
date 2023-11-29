@@ -27,7 +27,7 @@ timeline:
 layers:
 - type: TimelineJSON
   source:
-    url: info.json
+    url: /info.json
     filterId: |-
       {{ state.id }}
 #    filter: |-
