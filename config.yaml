@@ -40,7 +40,11 @@ layers:
       {% endif %}
     type: function
     initialMapView: |
-      {{ state.id != null and state.id != '' ? item.id == state.id : true }}
+      {% if state.id == null or state.id == '' %}true
+      {% elseif item.id == state.id %}true
+      {% elseif item.id in (getFlag('related')|default([])) %}true
+      {% else %}false
+      {% endif %}
     considerTimelineTimespan: |
       {{ state.id != null and state.id != '' ? item.id == state.id : true }}
     logFunction: |
