@@ -88,4 +88,13 @@ layers:
       url: |-
         /popup/{{ item.id }}
       querySelector: .view-node-info .layout
+      modifier:
+      - query: .header .field--name-bundle-fieldnode
+        action: append
+        content: |-
+          <div class="actions">
+            {% if item.id != state.id %}
+            <a href="#id={{ item.id }}" title="Zeige Netzwerk"><i class="fa-solid fa-diagram-project"></i></a>
+            {% endif %}
+          </div>
 
