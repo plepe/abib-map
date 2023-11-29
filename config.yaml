@@ -27,16 +27,17 @@ timeline:
 layers:
 - type: TimelineJSON
   source:
-    url: /info.json
+    url: info.json
     filterId: |-
       {{ state.id }}
 #    filter: |-
 #      {{ state.id != null and state.id != '' ? item.id == state.id : true }}
 
   feature:
-#    init: |
-#      {% set object = item.object|json_decode[0] %}
-#      {{ setFlag('related', object.related ? object.related|split(',') : []) }}
+    init: |
+      {% if item.id == state.id %}
+      {{ setFlag('related', item.related ? item.related|split(',') : []) }}
+      {% endif %}
     type: function
     initialMapView: |
       {{ state.id != null and state.id != '' ? item.id == state.id : true }}
@@ -53,7 +54,9 @@ layers:
       {{ item.ende }}
     nodeFeature: marker
     markerSymbol: |
-      {{ markerPointer({"fillColor": state.id == item.id ? '#ff0000' : '#ffffff' }) }}
+      {% set related = getFlag('related')|default([]) %}
+      {% set color = state.id == item.id ? '#ff0000' : (item.id in related ? '#ffff00' : '#ffffff') %}
+      {{ markerPointer({"fillColor": color }) }}
     timeline:
       show: |-
         {{ item.type == 'ereignis' or state.id == item.id }}
