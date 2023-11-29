@@ -1,4 +1,12 @@
-defaultState: {}
+#defaultState:
+
+map:
+  defaultView:
+    minlon: 10.064
+    minlat: 43.488
+    maxlon: 22.416
+    maxlat: 49.496
+
 addParam:
 - id
 
