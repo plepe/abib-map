@@ -1,5 +1,9 @@
 #defaultState:
 
+app:
+  name: timeline-map
+  url: https://github.com/plepe/timeline-map
+
 map:
   defaultView:
     minlon: 10.064
