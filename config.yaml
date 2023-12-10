@@ -15,11 +15,18 @@ sidebar:
   show: true
   source:
     url: |-
-      /sidebar/{{ state.id }}
-    querySelector: .view-node-info .layout
+      {% if state.id %}
+      sidebar-{{ state.id }}
+      {% elseif state.path %}
+      {{ state.path|replace('/', '') }}
+      {% else %}
+      personen
+      {% endif %}
+    querySelector: '#main'
 
 addParam:
 - id
+- path
 
 dateFormat: ll
 

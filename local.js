@@ -1,6 +1,7 @@
 window.addEventListener('load', () => {
   window.setTimeout(() => {
     window.app.on('popup-open', handlePopup)
+    window.app.on('sidebar-ready', handleSidebar)
   }, 0)
 })
 
@@ -45,5 +46,46 @@ function handlePopup (div) {
         header.appendChild(li)
       }
     })
+  })
+}
+
+function handleSidebar (display) {
+  console.log(display.url)
+  Array.from(display.content.querySelectorAll('a')).forEach(link => {
+    link.onclick = () => {
+      let path = link.getAttribute('href')
+      fetch(path)
+        .then(req => req.text())
+        .then(body => {
+          const x = document.createElement('div')
+          x.innerHTML = body
+
+          const content = x.querySelector('#main')
+          display.content.innerHTML = content ? content.innerHTML : ''
+
+          let shortlink = x.querySelector('link[rel=shortlink]')
+          if (shortlink) {
+            const m = shortlink.getAttribute('href').match(/\/node\/([0-9]+)$/)
+            if (m) {
+              const id = m[1]
+              display.url = 'sidebar-' + id
+              app.state.apply({ id, path: null, map: 'auto' })
+            } else {
+              shortlink = null
+            }
+          }
+
+          if (!shortlink) {
+            display.url = path
+            app.state.apply({ id: null, path })
+          }
+
+          app.state.updateLink(true)
+          display.emit('ready')
+        })
+
+
+      return false
+    }
   })
 }
