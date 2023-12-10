@@ -11,6 +11,13 @@ map:
     maxlon: 22.416
     maxlat: 49.496
 
+sidebar:
+  show: true
+  source:
+    url: |-
+      /sidebar/{{ state.id }}
+    querySelector: .view-node-info .layout
+
 addParam:
 - id
 
