@@ -54,6 +54,18 @@ function handleSidebar (display) {
   Array.from(display.content.querySelectorAll('a')).forEach(link => {
     link.onclick = () => {
       let path = link.getAttribute('href')
+
+      if (app.timelineLayers && app.timelineLayers.length && app.timelineLayers[0].data) {
+        const items = app.timelineLayers[0].data.filter(item => {
+          return item.url === link.href
+        })
+        if (items.length) {
+          app.state.apply({ id: items[0].id, path: null, map: 'auto' })
+          app.state.updateLink(true)
+          return false
+        }
+      }
+
       fetch(path)
         .then(req => req.text())
         .then(body => {
