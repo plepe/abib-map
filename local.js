@@ -52,8 +52,12 @@ function handlePopup (div) {
 function handleSidebar (display) {
   Array.from(display.content.querySelectorAll('a')).forEach(link => {
     link.onclick = () => {
-      display.content.innerHTML = ''
       let path = link.getAttribute('href')
+      if (path.substr(0, 1) !== '/') {
+        return true
+      }
+
+      display.content.innerHTML = ''
 
       if (app.timelineLayers && app.timelineLayers.length && app.timelineLayers[0].data) {
         const items = app.timelineLayers[0].data.filter(item => {
