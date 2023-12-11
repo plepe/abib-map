@@ -72,15 +72,12 @@ function handleSidebar (display) {
           const x = document.createElement('div')
           x.innerHTML = body
 
-          const content = x.querySelector('#main')
-          display.content.innerHTML = content ? content.innerHTML : ''
-
+          const content = x.querySelector('#main #block-bartik-content .content')
           let shortlink = x.querySelector('link[rel=shortlink]')
           if (shortlink) {
             const m = shortlink.getAttribute('href').match(/\/node\/([0-9]+)$/)
             if (m) {
               const id = m[1]
-              display.url = 'sidebar-' + id
               app.state.apply({ id, path: null, map: 'auto' })
             } else {
               shortlink = null
@@ -88,6 +85,7 @@ function handleSidebar (display) {
           }
 
           if (!shortlink) {
+            display.content.innerHTML = content ? content.innerHTML : ''
             display.url = path
             app.state.apply({ id: null, path })
           }
