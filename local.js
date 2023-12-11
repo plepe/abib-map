@@ -50,9 +50,9 @@ function handlePopup (div) {
 }
 
 function handleSidebar (display) {
-  console.log(display.url)
   Array.from(display.content.querySelectorAll('a')).forEach(link => {
     link.onclick = () => {
+      display.content.innerHTML = ''
       let path = link.getAttribute('href')
 
       if (app.timelineLayers && app.timelineLayers.length && app.timelineLayers[0].data) {
