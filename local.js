@@ -5,13 +5,7 @@ window.addEventListener('load', () => {
   }, 0)
 })
 
-function handlePopup (div) {
-  Array.from(div.querySelectorAll('a')).forEach(a => {
-    if (a.href && a.href.substr(0, 1) !== '#') {
-      a.target = '_top'
-    }
-  })
-
+function tabs (div) {
   Array.from(div.querySelectorAll('div.horizontal-tabs')).forEach(d => {
     const header = d.querySelector('ul.horizontal-tabs-list')
     const panesParent = d.querySelector('div[data-horizontal-tabs-panes]')
@@ -47,6 +41,16 @@ function handlePopup (div) {
       }
     })
   })
+}
+
+function handlePopup (div) {
+  Array.from(div.querySelectorAll('a')).forEach(a => {
+    if (a.href && a.href.substr(0, 1) !== '#') {
+      a.target = '_top'
+    }
+  })
+
+  tabs(div)
 }
 
 function handleSidebar (display) {
@@ -88,6 +92,8 @@ function handleSidebar (display) {
             }
           }
 
+          tabs(display.content)
+
           if (!shortlink) {
             display.content.innerHTML = content ? content.innerHTML : ''
             display.url = path
@@ -102,4 +108,6 @@ function handleSidebar (display) {
       return false
     }
   })
+
+  tabs(display.content)
 }
