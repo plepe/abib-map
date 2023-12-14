@@ -16,13 +16,18 @@ sidebar:
   source:
     url: |-
       {% if state.id %}
-      sidebar-{{ state.id }}
+      /sidebar/{{ state.id }}
       {% elseif state.path %}
-      {{ state.path|replace('/', '') }}
+      {{ state.path }}
       {% else %}
-      personen
+      /personen
       {% endif %}
-    querySelector: '#main'
+    querySelector: |-
+      {% if state.id %}
+      .view-node-info .layout
+      {% elseif state.path %}
+      #content .region
+      {% endif %}
 
 addParam:
 - id

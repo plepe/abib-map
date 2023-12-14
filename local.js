@@ -80,7 +80,7 @@ function handleSidebar (display) {
           const x = document.createElement('div')
           x.innerHTML = body
 
-          const content = x.querySelector('#main #block-bartik-content .content')
+          const content = x.querySelector('#content .region')
           let shortlink = x.querySelector('link[rel=shortlink]')
           if (shortlink) {
             const m = shortlink.getAttribute('href').match(/\/node\/([0-9]+)$/)
