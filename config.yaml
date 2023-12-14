@@ -12,7 +12,8 @@ map:
     maxlat: 49.496
 
 sidebar:
-  show: true
+  show: |-
+    {{ state.embed != "true" }}
   source:
     url: |-
       {% if state.id %}
