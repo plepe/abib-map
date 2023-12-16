@@ -5,14 +5,14 @@
 }
 .leaflet-popup-content {
   margin: 0 0;
-  padding-bottom: 1em;
 }
 .leaflet-popup-content .header {
   border-bottom: 1px solid black;
   background: #efefef;
 }
 .leaflet-popup-content .header,
-.leaflet-popup-content .content {
+.leaflet-popup-content .content,
+.leaflet-popup-content .popup_content {
   padding: 0.5em 1em;
 }
 .leaflet-popup-content h1 {
