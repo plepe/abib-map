@@ -58,12 +58,13 @@ function handleSidebar (display) {
 
 function captureLinks (dom) {
   Array.from(dom.querySelectorAll('a')).forEach(link => {
-    if (link.href && link.href.substr(0, 1) !== '#') {
+    const path = link.getAttribute('href')
+
+    if (path && path.substr(0, 1) !== '#') {
       link.target = '_blank'
     }
 
     link.onclick = () => {
-      let path = link.getAttribute('href')
       if (path.substr(0, 1) !== '/') {
         return true
       }
@@ -81,7 +82,6 @@ function captureLinks (dom) {
         }
       }
 
-      path = path.substr(1)
       fetch(path)
         .then(req => {
           if (req.status) {
