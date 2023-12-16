@@ -130,7 +130,8 @@ layers:
         content: |-
           <div class="actions">
             {% if item.id != state.id %}
-            <a href="#id={{ item.id }}" title="Zeige Netzwerk"><i class="fa-solid fa-diagram-project"></i></a>
+            <a href="#id={{ item.id }}&amp;map=auto" title="Zeige Beschreibung in Sidebar"><i class="fa-solid fa-circle-info"></i></a>
+            {% else %}
+            <i class="fa-solid fa-circle-info" title="Beschreibung wird in Sidebar angezeigt"></i>
             {% endif %}
           </div>
-
