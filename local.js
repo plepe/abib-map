@@ -1,3 +1,5 @@
+let sidebar
+
 window.addEventListener('load', () => {
   window.setTimeout(() => {
     window.app.on('popup-open', handlePopup)
@@ -44,24 +46,29 @@ function tabs (div) {
 }
 
 function handlePopup (div) {
-  Array.from(div.querySelectorAll('a')).forEach(a => {
-    if (a.href && a.href.substr(0, 1) !== '#') {
-      a.target = '_top'
-    }
-  })
-
+  captureLinks(div)
   tabs(div)
 }
 
 function handleSidebar (display) {
-  Array.from(display.content.querySelectorAll('a')).forEach(link => {
+  sidebar = display
+  captureLinks(display.content)
+  tabs(display.content)
+}
+
+function captureLinks (dom) {
+  Array.from(dom.querySelectorAll('a')).forEach(link => {
+    if (link.href && link.href.substr(0, 1) !== '#') {
+      link.target = '_blank'
+    }
+
     link.onclick = () => {
       let path = link.getAttribute('href')
       if (path.substr(0, 1) !== '/') {
         return true
       }
 
-      display.content.innerHTML = ''
+      sidebar.content.innerHTML = ''
 
       if (app.timelineLayers && app.timelineLayers.length && app.timelineLayers[0].data) {
         const items = app.timelineLayers[0].data.filter(item => {
@@ -74,8 +81,17 @@ function handleSidebar (display) {
         }
       }
 
+      path = path.substr(1)
       fetch(path)
-        .then(req => req.text())
+        .then(req => {
+          if (req.status) {
+            sidebar.content.innerHTML = req.statusText
+            sidebar.emit('ready')
+            return null
+          }
+
+          return req.text()
+        })
         .then(body => {
           const x = document.createElement('div')
           x.innerHTML = body
@@ -92,22 +108,20 @@ function handleSidebar (display) {
             }
           }
 
-          tabs(display.content)
+          tabs(sidebar.content)
 
           if (!shortlink) {
-            display.content.innerHTML = content ? content.innerHTML : ''
-            display.url = path
+            sidebar.content.innerHTML = content ? content.innerHTML : ''
+            sidebar.url = path
             app.state.apply({ id: null, path })
           }
 
           app.state.updateLink(true)
-          display.emit('ready')
+          sidebar.emit('ready')
         })
 
 
       return false
     }
   })
-
-  tabs(display.content)
 }
