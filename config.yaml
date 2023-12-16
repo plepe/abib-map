@@ -1,8 +1,8 @@
 #defaultState:
 
 app:
-  name: timeline-map
-  url: https://github.com/plepe/timeline-map
+  name: Geschichte des Anarchismus
+  url: https://karte.a-bibliothek.org/
 
 map:
   defaultView:
