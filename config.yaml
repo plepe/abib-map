@@ -21,7 +21,7 @@ sidebar:
       {% elseif state.path %}
       {{ state.path }}
       {% else %}
-      /personen
+      /node/110
       {% endif %}
     querySelector: |-
       {% if state.id %}
