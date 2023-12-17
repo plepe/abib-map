@@ -88,7 +88,7 @@ function captureLinks (dom) {
 
       fetch(path)
         .then(req => {
-          if (req.status) {
+          if (req.status !== 200) {
             sidebar.content.innerHTML = req.statusText
             sidebar.emit('ready')
             return null
