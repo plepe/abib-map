@@ -80,8 +80,7 @@ function captureLinks (dom) {
           return item.url === link.href
         })
         if (items.length) {
-          app.state.apply({ id: items[0].id, path: null, map: 'auto' })
-          app.state.updateLink(true)
+          app.state.apply({ id: items[0].id, path: null, map: 'auto' }, { update: 'push' })
           return false
         }
       }
@@ -106,7 +105,8 @@ function captureLinks (dom) {
             const m = shortlink.getAttribute('href').match(/\/node\/([0-9]+)$/)
             if (m) {
               const id = m[1]
-              app.state.apply({ id, path: null, map: 'auto' })
+              app.state.apply({ id, path: null, map: 'auto' }, { update: 'push' })
+              return
             } else {
               shortlink = null
             }
@@ -117,10 +117,9 @@ function captureLinks (dom) {
           if (!shortlink) {
             sidebar.content.innerHTML = content ? content.innerHTML : ''
             sidebar.url = path
-            app.state.apply({ id: null, path })
+            app.state.apply({ id: null, path }, { update: 'push' })
           }
 
-          app.state.updateLink(true)
           sidebar.emit('ready')
         })
 
