@@ -69,6 +69,10 @@ function captureLinks (dom) {
         return true
       }
 
+      if (!sidebar) {
+        return true
+      }
+
       sidebar.content.innerHTML = ''
 
       if (app.timelineLayers && app.timelineLayers.length && app.timelineLayers[0].data) {
