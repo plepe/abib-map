@@ -1,4 +1,6 @@
-#defaultState:
+defaultState:
+  id: null
+  path: null
 
 app:
   name: Geschichte des Anarchismus
