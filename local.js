@@ -61,7 +61,7 @@ function captureLinks (dom) {
     const path = link.getAttribute('href')
 
     if (path && path.substr(0, 1) !== '#') {
-      link.target = '_blank'
+      link.target = app.state.current.embed === 'true' ? '_top' : '_blank'
     }
 
     link.onclick = () => {
