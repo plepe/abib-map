@@ -85,46 +85,48 @@ function captureLinks (dom) {
         }
       }
 
-      fetch(path)
-        .then(req => {
-          if (req.status !== 200) {
-            sidebar.content.innerHTML = req.statusText
-            sidebar.emit('ready')
-            return null
-          }
-
-          return req.text()
-        })
-        .then(body => {
-          const x = document.createElement('div')
-          x.innerHTML = body
-
-          const content = x.querySelector('#content .region')
-          let shortlink = x.querySelector('link[rel=shortlink]')
-          if (shortlink) {
-            const m = shortlink.getAttribute('href').match(/\/node\/([0-9]+)$/)
-            if (m) {
-              const id = m[1]
-              app.state.apply({ id, path: null, map: 'auto' }, { update: 'push' })
-              return
-            } else {
-              shortlink = null
-            }
-          }
-
-          tabs(sidebar.content)
-
-          if (!shortlink) {
-            sidebar.content.innerHTML = content ? content.innerHTML : ''
-            sidebar.url = path
-            app.state.apply({ id: null, path }, { update: 'push' })
-          }
-
-          sidebar.emit('ready')
-        })
-
-
+      sidebarReload(path)
       return false
     }
   })
+}
+
+function sidebarReload (path) {
+  fetch(path)
+    .then(req => {
+      if (req.status !== 200) {
+        sidebar.content.innerHTML = req.statusText
+        sidebar.emit('ready')
+        return null
+      }
+
+      return req.text()
+    })
+    .then(body => {
+      const x = document.createElement('div')
+      x.innerHTML = body
+
+      const content = x.querySelector('#content .region')
+      let shortlink = x.querySelector('link[rel=shortlink]')
+      if (shortlink) {
+        const m = shortlink.getAttribute('href').match(/\/node\/([0-9]+)$/)
+        if (m) {
+          const id = m[1]
+          app.state.apply({ id, path: null, map: 'auto' }, { update: 'push' })
+          return
+        } else {
+          shortlink = null
+        }
+      }
+
+      tabs(sidebar.content)
+
+      if (!shortlink) {
+        sidebar.content.innerHTML = content ? content.innerHTML : ''
+        sidebar.url = path
+        app.state.apply({ id: null, path }, { update: 'push' })
+      }
+
+      sidebar.emit('ready')
+    })
 }
