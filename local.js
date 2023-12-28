@@ -89,9 +89,20 @@ function captureLinks (dom) {
       return false
     }
   })
+
+  Array.from(dom.querySelectorAll('form')).forEach(form => {
+    form.onsubmit = () => {
+      sidebarReload('?' + new URLSearchParams(new FormData(form)).toString())
+      return false
+    }
+  })
 }
 
 function sidebarReload (path) {
+  if (path.substr(0, 1) === '?') {
+    path = sidebar.url.match(/^([^\?]+)(\?.*|)$/)[1] + path
+  }
+
   fetch(path)
     .then(req => {
       if (req.status !== 200) {
