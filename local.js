@@ -92,6 +92,7 @@ function captureLinks (dom) {
 
   Array.from(dom.querySelectorAll('form')).forEach(form => {
     form.onsubmit = () => {
+      sidebar.content.innerHTML = ''
       sidebarReload('?' + new URLSearchParams(new FormData(form)).toString())
       return false
     }
