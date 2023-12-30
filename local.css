@@ -86,3 +86,14 @@ div.horizontal-tabs > div[data-horizontal-tabs-panes] > details[open] {
 div.horizontal-tabs > div[data-horizontal-tabs-panes] > details > summary {
   display: none;
 }
+
+/* Autocomplete */
+ul.ui-autocomplete {
+  background: white;
+  border: 1px solid black;
+  margin: 0 0;
+  padding: 0 0;
+}
+ul.ui-autocomplete > li {
+  list-style: none;
+}

@@ -53,6 +53,7 @@ function handlePopup (div) {
 function handleSidebar (display) {
   sidebar = display
   captureLinks(display.content)
+  captureAutocomplete(display.content)
   tabs(display.content)
 }
 
@@ -147,4 +148,68 @@ function sidebarReload (path) {
 
       sidebar.emit('ready')
     })
+}
+
+function captureAutocomplete (div) {
+  const ul = document.createElement('ul')
+  ul.className = 'ui-menu ui-widget ui-widget-content ui-autocomplete ui-front'
+  ul.style.display = 'none'
+  ul.unselectable = 'on'
+
+  ul.style.position = 'absolute'
+  
+  sidebar.content.appendChild(ul)
+
+  Array.from(div.querySelectorAll('input[data-autocomplete-path]')).forEach(input => {
+
+    input.autocomplete = 'off'
+
+    const path = input.getAttribute('data-autocomplete-path')
+    input.addEventListener('input', e => {
+      loadAutocomplete(path, input.value, (err, list) => {
+        ul.innerHTML = ''
+
+        list.forEach(item => {
+          const li = document.createElement('li')
+          li.className = 'ui-menu-item'
+
+          const a = document.createElement('a')
+          a.className = 'ui-menu-item-wrapper'
+          a.innerHTML = item.label
+          a.onclick = () => {
+            input.value = item.value
+            ul.style.display = 'none'
+          }
+
+          li.appendChild(a)
+          ul.appendChild(li)
+        })
+      })
+
+      ul.style.top = (input.offsetHeight + input.offsetTop) + 'px'
+      ul.style.left = input.offsetLeft + 'px'
+      ul.style.display = 'block'
+    })
+  })
+}
+
+const autocompleteDelay = 250
+let autocompleteTimeout
+let autocompleteId
+function loadAutocomplete (path, value, callback) {
+  if (autocompleteTimeout) { window.clearTimeout(autocompleteTimeout) }
+
+  autocompleteTimeout = window.setTimeout(() => {
+    const reqId = new Date()
+    autocompleteId = reqId
+
+    const url = path + '?q=' + encodeURIComponent(value)
+    fetch(url)
+      .then(req => req.json())
+      .then(data => {
+        if (autocompleteId === reqId) {
+          callback(null, data)
+        }
+      })
+  }, autocompleteDelay)
 }
