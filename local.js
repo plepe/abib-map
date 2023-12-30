@@ -57,11 +57,17 @@ function handleSidebar (display) {
 }
 
 function captureLinks (dom) {
+  const currentPath = app.state.current.path ? app.state.current.path.split('?')[0] : '/'
+
   Array.from(dom.querySelectorAll('a')).forEach(link => {
     const path = link.getAttribute('href')
 
     if (path && path.substr(0, 1) !== '#') {
       link.target = app.state.current.embed === 'true' ? '_top' : '_blank'
+    }
+
+    if (path.substr(0, 1) === '?') {
+      link.href = currentPath + path
     }
 
     link.onclick = () => {
