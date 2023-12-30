@@ -65,7 +65,7 @@ function captureLinks (dom) {
     }
 
     link.onclick = () => {
-      if (path.substr(0, 1) !== '/') {
+      if (!['/', '?'].includes(path.substr(0, 1))) {
         return true
       }
 
