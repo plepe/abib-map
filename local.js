@@ -190,6 +190,10 @@ function captureAutocomplete (div) {
       ul.style.left = input.offsetLeft + 'px'
       ul.style.display = 'block'
     })
+
+    input.addEventListener('blur', e => {
+      ul.style.display = 'none'
+    })
   })
 }
 
