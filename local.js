@@ -176,7 +176,7 @@ function captureAutocomplete (div) {
           const a = document.createElement('a')
           a.className = 'ui-menu-item-wrapper'
           a.innerHTML = item.label
-          a.onclick = () => {
+          a.onmousedown = () => {
             input.value = item.value
             ul.style.display = 'none'
           }
