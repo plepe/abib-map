@@ -1,6 +1,6 @@
 defaultState:
   id: null
-  path: null
+  path: /
 
 app:
   name: Geschichte des Anarchismus
@@ -20,7 +20,7 @@ sidebar:
     url: |-
       {% if state.id %}
       /sidebar/{{ state.id }}
-      {% elseif state.path %}
+      {% elseif state.path and state.path != '/' %}
       {{ state.path }}
       {% else %}
       /node/110
@@ -28,13 +28,15 @@ sidebar:
     querySelector: |-
       {% if state.id %}
       .view-node-info .layout
-      {% elseif state.path %}
+      {% else %}
       #content .region
       {% endif %}
 
 addParam:
-- id
-- path
+- id:
+    includeNull: true
+- path:
+    includeNull: true
 
 dateFormat: ll
 
