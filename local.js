@@ -57,10 +57,14 @@ function handleSidebar (display) {
   tabs(display.content)
 }
 
+function pathFromUrl (url) {
+  return '/' + url.split('/').slice(3).join('/')
+}
+
 function path2id (url) {
   if (app.timelineLayers && app.timelineLayers.length && app.timelineLayers[0].data) {
     const items = app.timelineLayers[0].data.filter(item => {
-      return item.url === url
+      return item.url === url || pathFromUrl(item.url) === url
     })
 
     return items.length ? items[0].id : null
