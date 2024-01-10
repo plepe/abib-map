@@ -20,6 +20,8 @@ sidebar:
     url: |-
       {% if state.id %}
       /sidebar/{{ state.id }}
+      {% elseif state.path matches '/^\/personen(\?.*|)$/' %}
+      {{ state.path|replace({ '/personen': '/personen-map' }) }}
       {% elseif state.path and state.path != '/' %}
       {{ state.path }}
       {% else %}
