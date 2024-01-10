@@ -4,6 +4,9 @@ window.addEventListener('load', () => {
   window.setTimeout(() => {
     window.app.on('popup-open', handlePopup)
     window.app.on('sidebar-ready', handleSidebar)
+    if (window.app.twig) {
+      window.app.twig.extendFunction('path2id', path2id)
+    }
   }, 0)
 })
 
