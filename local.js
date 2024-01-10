@@ -57,6 +57,16 @@ function handleSidebar (display) {
   tabs(display.content)
 }
 
+function path2id (url) {
+  if (app.timelineLayers && app.timelineLayers.length && app.timelineLayers[0].data) {
+    const items = app.timelineLayers[0].data.filter(item => {
+      return item.url === url
+    })
+
+    return items.length ? items[0].id : null
+  }
+}
+
 function captureLinks (dom) {
   const currentPath = app.state.current.path ? app.state.current.path.split('?')[0] : '/'
 
@@ -83,11 +93,9 @@ function captureLinks (dom) {
       sidebar.content.innerHTML = ''
 
       if (app.timelineLayers && app.timelineLayers.length && app.timelineLayers[0].data) {
-        const items = app.timelineLayers[0].data.filter(item => {
-          return item.url === link.href
-        })
-        if (items.length) {
-          app.state.apply({ id: items[0].id, path: null, map: 'auto' }, { update: 'push' })
+        const id = path2id(link.href)
+        if (id) {
+          app.state.apply({ id, path: null, map: 'auto' }, { update: 'push' })
           return false
         }
       }
