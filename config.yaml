@@ -124,6 +124,12 @@ layers:
       <i class="fa-solid fa-bolt"></i>
       {% elseif item.type == 'gruppierung' %}
       <i class="fa-solid fa-users"></i>
+      {% elseif item.type == 'verlag' %}
+      <i class="fa-solid fa-print"></i>
+      {% elseif item.type == 'zeitung' %}
+      <i class="fa-solid fa-newspaper"></i>
+      {% elseif item.type == 'ort' %}
+      <i class="fa-solid fa-city"></i>
       {% endif %}
     styleTemplate: |-
       { "color": "black", "weight": "3" }
