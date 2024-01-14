@@ -1,6 +1,13 @@
+panes:
+  borders:
+    zIndex: 380
+
 query:
   0: |
     relation[admin_level=2]
+
 feature:
   body: |
     {{ tags.start_date }} - {{ tags.end_date }}
+  style:
+    pane: borders
