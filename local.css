@@ -97,3 +97,7 @@ ul.ui-autocomplete {
 ul.ui-autocomplete > li {
   list-style: none;
 }
+
+#block-bartik-primary-local-tasks {
+  display: none;
+}
