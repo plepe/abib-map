@@ -14,16 +14,20 @@ function tabs (div) {
   Array.from(div.querySelectorAll('div.horizontal-tabs')).forEach(d => {
     const header = d.querySelector('ul.horizontal-tabs-list')
     const panesParent = d.querySelector('div[data-horizontal-tabs-panes]')
+    panesParent.classList.add('horizontal-tabs-panes')
     const panes = []
     const headers = []
 
     Array.from(panesParent.children).forEach(p => {
       if (p.nodeName === 'DETAILS') {
+        p.classList.add('horizontal-tabs-pane')
+
         panes.push(p)
         const li = document.createElement('li')
+        li.classList = 'horizontal-tab-button'
         headers.push(li)
         if (p.hasAttribute('open')) {
-          li.classList.add('active')
+          li.classList.add('selected')
         }
 
         const a = document.createElement('a')
@@ -33,10 +37,10 @@ function tabs (div) {
             p1.removeAttribute('open')
           })
           headers.forEach(l1 => {
-            l1.classList.remove('active')
+            l1.classList.remove('selected')
           })
           p.setAttribute('open', 'open')
-          li.classList.add('active')
+          li.classList.add('selected')
           return false
         }
         a.innerHTML = p.querySelector('summary').innerHTML
@@ -45,6 +49,8 @@ function tabs (div) {
         header.appendChild(li)
       }
     })
+
+    header.classList.remove('visually-hidden')
   })
 }
 
