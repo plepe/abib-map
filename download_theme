@@ -4,8 +4,7 @@ const JSDOM = require("jsdom").JSDOM
 
 const queries = [
   'link[rel=stylesheet]',
-  'link[rel=icon]',
-  'script[src]'
+  'link[rel=icon]'
 ]
 
 let addHeader = '<script src="local.js">\n</script><link rel="stylesheet" href="local.css" />\n'

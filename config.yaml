@@ -20,7 +20,7 @@ sidebar:
     url: |-
       {% if state.id %}
       /sidebar/{{ state.id }}
-      {% elseif state.path matches '/^\/personen(\?.*|)$/' %}
+      {% elseif state.path matches '/^\/personen(\?.*|\/[a-z]|)$/' %}
       {{ state.path|replace({ '/personen': '/personen-map' }) }}
       {% elseif state.path and state.path != '/' %}
       {{ state.path }}
@@ -28,11 +28,7 @@ sidebar:
       /node/110
       {% endif %}
     querySelector: |-
-      {% if state.id %}
-      .view-node-info .layout
-      {% else %}
       #content .region
-      {% endif %}
 
 addParam:
 - id:
