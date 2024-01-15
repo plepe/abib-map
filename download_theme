@@ -4,15 +4,19 @@ const JSDOM = require("jsdom").JSDOM
 
 const queries = [
   'link[rel=stylesheet]',
-  'link[rel=icon]'
+  'link[rel=icon]',
+  'script[src]'
 ]
 
 let addHeader = '<script src="local.js">\n</script><link rel="stylesheet" href="local.css" />\n'
 let url = 'https://karte.a-bibliothek.org'
+// this path points to a view which uses autocomplete and colorbox, so that all necessary JS is loaded
+let path = '/export'
 
-fetch(url)
+fetch(url + path)
   .then(req => req.text())
   .then(body => {
+    console.log(body)
     const dom = new JSDOM(body)
     const document = dom.window.document
 
