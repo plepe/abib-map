@@ -13,6 +13,12 @@ map:
     maxlon: 22.416
     maxlat: 49.496
 
+panes:
+  selected:
+    zIndex: 605
+  related:
+    zIndex: 604
+
 sidebar:
   show: |-
     {{ state.embed != "true" }}
@@ -127,6 +133,8 @@ layers:
       {% elseif item.type == 'ort' %}
       <i class="fa-solid fa-city"></i>
       {% endif %}
+    markerOptions: |-
+      { "pane": "{{ state.id == item.id ? 'selected' : (item.id in (getFlag('related')|default([])) ? 'related' : 'markerPane') }}" }
     styleTemplate: |-
       { "color": "black", "weight": "3" }
     popupTemplate: Loading ...
