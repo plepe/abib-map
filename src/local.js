@@ -86,7 +86,11 @@ function captureLinks (dom) {
   Array.from(dom.querySelectorAll('a')).forEach(link => {
     const path = link.getAttribute('href')
 
-    if (path && path.substr(0, 1) !== '#') {
+    if (!path) {
+      return
+    }
+
+    if (path.substr(0, 1) !== '#') {
       link.target = app.state.current.embed === 'true' ? '_top' : '_blank'
     }
 
