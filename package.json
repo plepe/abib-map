@@ -1,5 +1,12 @@
 {
+  "scripts": {
+    "build": "browserify -p esmify src/local.js -o dist/local.js",
+    "watch": "watchify -p esmify -d src/local.js -o dist/local.js -v",
+    "prepare": "npm run build"
+  },
   "dependencies": {
-    "jsdom": "^23.2.0"
+    "browserify": "^17.0.0",
+    "jsdom": "^23.2.0",
+    "watchify": "^4.0.0"
   }
 }
