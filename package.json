@@ -1,4 +1,8 @@
 {
+  "name": "abib-map",
+  "version": "1.0.0",
+  "description": "Special code for timeline-map developed for the Viennese Anarchist Library",
+  "main": "index.js",
   "scripts": {
     "build": "browserify -p esmify src/local.js -o dist/local.js",
     "watch": "watchify -p esmify -d src/local.js -o dist/local.js -v",
@@ -8,5 +12,16 @@
     "browserify": "^17.0.0",
     "jsdom": "^23.2.0",
     "watchify": "^4.0.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/plepe/abib-map.git"
+  },
+  "author": "Stephan Bösch-Plepelits <skunk@xover.mud.at>",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/plepe/abib-map/issues"
+  },
+  "homepage": "https://github.com/plepe/abib-map#readme"
 }
